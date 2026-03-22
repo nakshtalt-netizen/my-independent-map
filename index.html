@@ -10,27 +10,31 @@
             margin: 0; padding: 0; background-color: #000; color: #fff;
             font-family: 'Montserrat', sans-serif; text-align: center;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
         h1 { font-size: 2.5em; margin-bottom: 20px; letter-spacing: -1px; }
         p { line-height: 1.6; color: #ccc; font-size: 1.1em; margin-bottom: 30px; }
         
         .map-frame {
-            width: 100%; height: 600px; border: 1px solid #333;
+            width: 100%; height: 650px; border: 1px solid #333;
             border-radius: 12px; overflow: hidden; background: #111;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .controls { margin: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .controls { margin: 30px 0; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
         .btn {
-            background: transparent; border: 1px solid #fff; color: #fff;
-            padding: 12px 24px; cursor: pointer; border-radius: 30px;
+            background: transparent; border: 1px solid #444; color: #fff;
+            padding: 12px 20px; cursor: pointer; border-radius: 30px;
             transition: all 0.3s; font-weight: bold; text-decoration: none;
+            font-size: 0.9em;
         }
-        .btn:hover, .btn.active { background: #fff; color: #000; }
+        .btn:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+        .btn.active { background: #fff; color: #000; border-color: #fff; }
 
         @media (max-width: 600px) {
             h1 { font-size: 1.8em; }
-            .map-frame { height: 400px; }
+            .map-frame { height: 450px; }
+            .btn { padding: 10px 16px; font-size: 0.8em; }
         }
     </style>
 </head>
@@ -45,26 +49,34 @@
     </p>
 
     <div class="controls">
-        <button class="btn active" onclick="changeMap('map_islands.html', this)">Мапа островів</button>
-        <button class="btn" onclick="changeMap('map_points.html', this)">Мапа точок</button>
+        <button class="btn active" onclick="changeMap('map_points.html', this)">Мапа з точками</button>
+        <button class="btn" onclick="changeMap('map_islands.html', this)">Мапа з островами</button>
+        <button class="btn" onclick="changeMap('kepler.gl.html', this)">Мапа з Kepler</button>
     </div>
 
     <div class="map-frame">
-        <iframe src="map_islands.html" id="map-iframe"></iframe>
+        <iframe src="map_points.html" id="map-iframe"></iframe>
     </div>
 
-    <p style="margin-top: 50px; font-size: 0.9em; color: #666;">
-        Створено за допомогою ШІ (Sentence-Transformers & UMAP). 2024
+    <p style="margin-top: 50px; font-size: 0.8em; color: #555; letter-spacing: 1px;">
+        SENTENCE-TRANSFORMERS + UMAP + PLOTLY + KEPLER.GL | 2026
     </p>
 </div>
 
 <script>
     function changeMap(fileName, btn) {
-        document.getElementById('map-iframe').src = fileName;
+        const iframe = document.getElementById('map-iframe');
         
-        // Знімаємо клас active з усіх кнопок
+        // Додаємо легку прозорість під час завантаження
+        iframe.style.opacity = '0.5';
+        iframe.src = fileName;
+        
+        iframe.onload = function() {
+            iframe.style.opacity = '1';
+        };
+        
+        // Керування активною кнопкою
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-        // Додаємо active на натиснуту
         btn.classList.add('active');
     }
 </script>
