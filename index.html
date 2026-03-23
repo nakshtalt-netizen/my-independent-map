@@ -107,23 +107,32 @@
 <script>
     function changeMap(fileName, btn) {
         const iframe = document.getElementById('map-iframe');
-        iframe.style(opacity = '0');
         
+        // 1. Робимо мапу напівпрозорою під час зміни
+        iframe.style.opacity = '0';
+        
+        // 2. Змінюємо файл через коротку паузу
         setTimeout(() => {
             iframe.src = fileName;
-            iframe.onload = () => iframe.style.opacity = '1';
-        }, 200);
+            
+            // 3. Повертаємо видимість, коли файл завантажиться
+            iframe.onload = () => {
+                iframe.style.opacity = '1';
+            };
+        }, 300);
         
+        // 4. Оновлюємо вигляд кнопок
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     }
 
+    // Логіка попапу (залишається без змін)
     const modal = document.getElementById("formModal");
-    const btn = document.getElementById("openForm");
-    const span = document.getElementById("closeForm");
+    const btnOpen = document.getElementById("openForm");
+    const spanClose = document.getElementById("closeForm");
 
-    btn.onclick = () => modal.style.display = "block";
-    span.onclick = () => modal.style.display = "none";
+    btnOpen.onclick = () => modal.style.display = "block";
+    spanClose.onclick = () => modal.style.display = "none";
     
     window.onclick = (event) => {
         if (event.target == modal) modal.style.display = "none";
