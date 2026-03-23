@@ -47,13 +47,50 @@
     transition: opacity 0.4s ease;
 }
         .controls { margin: 30px 0; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        /* ОНОВЛЕНІ КНОПКИ ПЕРЕМИКАННЯ */
         .btn {
-            background: rgba(255,255,255,0.05); border: 1px solid #444; color: #fff;
-            padding: 12px 24px; cursor: pointer; border-radius: 50px;
-            transition: all 0.3s; font-weight: 600; text-decoration: none; font-size: 0.9em;
+            background: #00240f; /* Темний фон для неактивної кнопки */
+            border: none;   
+            color: #fff;
+            padding: 14px 28px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-family: 'Montserrat', sans-serif;
+            
+            /* Ефект об'єму як у нижньої кнопки */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
         }
-        .btn:hover { border-color: #fff; background: rgba(255,255,255,0.15); }
-        .btn.active { background: #fff; color: #000; border-color: #fff; }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            background: #00240f;
+          
+          /* Ефект білого світіння, як у нижньої кнопки */
+            box-shadow: 0 12px 25px rgba(255,255,255,0.25);                   
+        }
+
+        /* Стиль для активної кнопки (стає білою та об'ємною) */
+        .btn.active {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+        }
+
+        .btn.active:hover {
+            box-shadow: 0 15px 35px rgba(255,255,255,0.25);
+        }
+
+        /* Ефект натискання для обох типів кнопок */
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
 
         /* СЕКЦІЯ З КНОПКОЮ В КІНЦІ */
         .cta-wrapper {
