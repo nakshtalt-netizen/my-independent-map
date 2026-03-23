@@ -18,8 +18,9 @@
             width: 100%; height: 650px; border: 1px solid #333;
             border-radius: 12px; overflow: hidden; background: #111;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
         }
-        iframe { width: 100%; height: 100%; border: none; }
+        iframe { width: 100%; height: 100%; border: none; transition: opacity 0.5s; }
 
         .controls { margin: 30px 0; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
         .btn {
@@ -31,10 +32,38 @@
         .btn:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
         .btn.active { background: #fff; color: #000; border-color: #fff; }
 
+        /* Стилі для плаваючої кнопки Форми */
+        .fab-button {
+            position: fixed; bottom: 30px; right: 30px;
+            padding: 15px 30px; background: #fff; color: #000;
+            border: none; border-radius: 50px; cursor: pointer;
+            font-weight: bold; box-shadow: 0 5px 20px rgba(255,255,255,0.2);
+            z-index: 1000; transition: transform 0.3s ease;
+        }
+        .fab-button:hover { transform: scale(1.1); background: #f0f0f0; }
+
+        /* Стилі Попапу */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px); z-index: 2000;
+        }
+        .modal-content {
+            position: relative; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 90%; max-width: 650px;
+            background: #111; border: 1px solid #333; border-radius: 20px;
+            padding: 10px; overflow: hidden;
+        }
+        .close-button {
+            position: absolute; right: 20px; top: 10px;
+            font-size: 35px; color: #fff; cursor: pointer; z-index: 2100;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.8em; }
             .map-frame { height: 450px; }
             .btn { padding: 10px 16px; font-size: 0.8em; }
+            .fab-button { bottom: 20px; right: 20px; padding: 12px 20px; }
         }
     </style>
 </head>
@@ -62,21 +91,41 @@
     </p>
 </div>
 
+<button id="openForm" class="fab-button">+ Додати спогад</button>
+
+<div id="formModal" class="modal-overlay">
+    <div class="modal-content">
+        <span id="closeForm" class="close-button">&times;</span>
+        <iframe src="https://docs.google.com/forms/d/1uArvhOBn-vZJfeMbARpP_OZf9PFeFUVB-LtV_7is6yk/edit" width="100%" height="600" frameborder="0">Завантаження…</iframe>
+    </div>
+</div>
+
 <script>
+    // Функція перемикання мап
     function changeMap(fileName, btn) {
         const iframe = document.getElementById('map-iframe');
+        iframe.style.opacity = '0'; // Плавне зникнення перед зміною
         
-        // Додаємо легку прозорість під час завантаження
-        iframe.style.opacity = '0.5';
-        iframe.src = fileName;
+        setTimeout(() => {
+            iframe.src = fileName;
+            iframe.onload = () => iframe.style.opacity = '1';
+        }, 300);
         
-        iframe.onload = function() {
-            iframe.style.opacity = '1';
-        };
-        
-        // Керування активною кнопкою
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+    }
+
+    // Логіка попапу
+    const modal = document.getElementById("formModal");
+    const btn = document.getElementById("openForm");
+    const span = document.getElementById("closeForm");
+
+    btn.onclick = () => modal.style.display = "block";
+    span.onclick = () => modal.style.display = "none";
+    
+    // Закриття при кліку поза вікном
+    window.onclick = (event) => {
+        if (event.target == modal) modal.style.display = "none";
     }
 </script>
 
