@@ -11,14 +11,19 @@
             font-family: 'Montserrat', sans-serif; text-align: center;
         }
         .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-        h1 { font-size: 2.8em; margin-bottom: 20px; letter-spacing: -1px; font-weight: 700; }
-        p { line-height: 1.6; color: #ccc; font-size: 1.1em; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
         
+        h1 { font-size: 2.8em; margin-bottom: 20px; letter-spacing: -1px; font-weight: 700; }
+        h2 { font-size: 1.5em; font-weight: 400; color: #eee; margin-bottom: 40px; }
+        
+        p { line-height: 1.6; color: #ccc; font-size: 1.1em; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .justify { text-align: justify; text-justify: inter-word; }
+
         .map-frame {
             width: 100%; height: 650px; border: 1px solid #333;
             border-radius: 16px; overflow: hidden; background: #111;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7);
             position: relative;
+            margin-bottom: 50px;
         }
         iframe { width: 100%; height: 100%; border: none; transition: opacity 0.4s ease; }
 
@@ -26,22 +31,48 @@
         .btn {
             background: rgba(255,255,255,0.05); border: 1px solid #444; color: #fff;
             padding: 12px 24px; cursor: pointer; border-radius: 50px;
-            transition: all 0.3s; font-weight: 600; text-decoration: none;
-            font-size: 0.9em;
+            transition: all 0.3s; font-weight: 600; text-decoration: none; font-size: 0.9em;
         }
-        .btn:hover { border-color: #fff; background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-        .btn.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .btn:hover { border-color: #fff; background: rgba(255,255,255,0.15); }
+        .btn.active { background: #fff; color: #000; border-color: #fff; }
 
-        /* Стильна кнопка форми */
-        .fab-button {
-            position: fixed; bottom: 40px; right: 40px;
-            padding: 16px 32px; background: #fff; color: #000;
-            border: none; border-radius: 50px; cursor: pointer;
-            font-weight: 700; box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-            z-index: 1000; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-size: 1em;
+        /* СЕКЦІЯ З КНОПКОЮ В КІНЦІ */
+        .cta-wrapper {
+            margin: 80px auto;
+            padding: 0 20px;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .fab-button:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 15px 40px rgba(255,255,255,0.3); }
+
+        .cta-text {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .fab-button-centered {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .fab-button-centered:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.2);
+        }
 
         /* Модальне вікно */
         .modal-overlay {
@@ -57,39 +88,34 @@
         }
         .close-button {
             position: absolute; right: 20px; top: 15px;
-            font-size: 40px; color: #000; cursor: pointer; z-index: 2100;
-            line-height: 1;
+            font-size: 40px; color: #000; cursor: pointer; z-index: 2100; line-height: 1;
         }
 
         @media (max-width: 600px) {
             h1 { font-size: 2em; }
-            .map-frame { height: 500px; }
-            .fab-button { bottom: 20px; right: 20px; padding: 12px 24px; font-size: 0.9em; }
-            .modal-content { height: 90vh; }
+            .map-frame { height: 450px; }
+            .cta-text { font-size: 1em; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-<h1 style="margin-bottom: 20px;">Мапа Незалежності</h1>
+    <h1>Мапа Незалежності</h1>
+    <h2>Моменти, в які ми відчули себе частиною нації</h2>
 
-<h2 style="margin-bottom: 40px; font-weight: 400; color: #eee;">
-    Моменти, в які ми відчули себе частиною нації
-</h2>
-
-<p style="margin-bottom: 30px; line-height: 1.8; text-align: justify; text-justify: inter-word;">
-    Що таке "момент незалежності"? Важко сказати. Для когось це момент, коли Магучіх встановлює світовий рекорд. 
-    Для інших — Калуш у фіналі Євробачення чи наш прапор у невеличкій кав'ярні в Сіднеї. 
-    Можливо, це збірник Ліни Костенко або просто зупинитись в полі з соняшниками і залипнути на блакитне небо. 
-    Таких моментів сотні. Але в кожному ти чітко відчуваєш себе частиною України. 
-</p>
-    
-<p style="margin-bottom: 50px; line-height: 1.8; text-align: justify; text-justify: inter-word;">
-    Цей проєкт візуалізує колективну пам'ять за допомогою нейромереж. 
-    Ми перетворили текстові спогади на інтерактивний простір сенсів, 
-    де близькі за змістом події утворюють спільні острови пам'яті.
-</p>
+    <p class="justify">
+        Що таке "момент незалежності"? Важко сказати. Для когось це момент, коли Магучіх встановлює світовий рекорд. 
+        Для інших — Калуш у фіналі Євробачення чи наш прапор у невеличкій кав'ярні в Сіднеї. 
+        Можливо, це збірник Ліни Костенко або просто зупинитись в полі з соняшниками і залипнути на блакитне небо. 
+        Таких моментів сотні. Але в кожному ти чітко відчуваєш себе частиною України. 
+    </p>
+        
+    <p class="justify">
+        Цей проєкт візуалізує колективну пам'ять за допомогою нейромереж. 
+        Ми перетворили текстові спогади на інтерактивний простір сенсів, 
+        де близькі за змістом події утворюють спільні острови пам'яті.
+    </p>
 
     <div class="controls">
         <button class="btn" onclick="changeMap('kepler.gl.html', this)">Мапа із заданими категоріями</button>
@@ -100,51 +126,42 @@
         <iframe src="map_points.html" id="map-iframe"></iframe>
     </div>
 
-    <p style="margin-top: 60px; font-size: 0.75em; color: #444; letter-spacing: 2px; text-transform: uppercase;">
+    <div class="cta-wrapper">
+        <p class="cta-text">А тепер закрий очі, згадай свій момент і поділись ним з усією країною.</p>
+        <button id="openForm" class="fab-button-centered">+ Додай свій спогад</button>
+    </div>
+
+    <p style="margin-top: 60px; font-size: 0.75em; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase;">
         AI Visualization Project | 2026 | UKRAINE
     </p>
 </div>
-
-<button id="openForm" class="fab-button">+ Додай свій момент</button>
 
 <div id="formModal" class="modal-overlay">
     <div class="modal-content">
         <span id="closeForm" class="close-button">&times;</span>
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScuOZJrXo-gExeeqSuZUaoVEHVUrrLiwCDzQlQSjhkm8u0kyA/viewform?embedded=true" 
-                width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Завантаження…</iframe>
+                width="100%" height="100%" frameborder="0">Завантаження…</iframe>
     </div>
 </div>
 
 <script>
     function changeMap(fileName, btn) {
         const iframe = document.getElementById('map-iframe');
-        
-        // 1. Робимо мапу напівпрозорою під час зміни
         iframe.style.opacity = '0';
-        
-        // 2. Змінюємо файл через коротку паузу
         setTimeout(() => {
             iframe.src = fileName;
-            
-            // 3. Повертаємо видимість, коли файл завантажиться
-            iframe.onload = () => {
-                iframe.style.opacity = '1';
-            };
+            iframe.onload = () => { iframe.style.opacity = '1'; };
         }, 300);
-        
-        // 4. Оновлюємо вигляд кнопок
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     }
 
-    // Логіка попапу (залишається без змін)
     const modal = document.getElementById("formModal");
     const btnOpen = document.getElementById("openForm");
     const spanClose = document.getElementById("closeForm");
 
     btnOpen.onclick = () => modal.style.display = "block";
     spanClose.onclick = () => modal.style.display = "none";
-    
     window.onclick = (event) => {
         if (event.target == modal) modal.style.display = "none";
     }
